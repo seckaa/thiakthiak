@@ -98,7 +98,7 @@ export async function GET(request: Request, { id }: { id: string }) {
                                   WHERE
                                     drivers.clerk_id = ${id}
                                       AND
-                                    rides.status = 'new'
+                                    rides.status = 'toOrigin'
 
                                    ORDER BY rides.created_at DESC LIMIT 1`;
 
@@ -143,80 +143,80 @@ export async function GET(request: Request, { id }: { id: string }) {
   }
 }
 
-const ride = [
-  {
-    created_at: "2024-09-23T23:52:27.772Z",
-    destination_address: "89 South Street, New York, NY, USA",
-    destination_latitude: "40.706210",
-    destination_longitude: "-74.003491",
-    driver: {
-      car_image_url:
-        "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
-      car_seats: 4,
-      driver_id: 3,
-      first_name: "Die",
-      last_name: "Gaye",
-      profile_image_url:
-        "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
-      rating: 4.7,
-    },
-    fare_price: "2100.00",
-    origin_address: "663, New York",
-    origin_latitude: "40.907266",
-    origin_longitude: "-73.850072",
-    payment_status: "paid",
-    ride_id: 1,
-    ride_time: 44,
-  },
-  {
-    created_at: "2024-09-24T04:31:49.352Z",
-    destination_address: "78 Stratton Street South, Yonkers, NY, USA",
-    destination_latitude: "40.941391",
-    destination_longitude: "-73.877373",
-    driver: {
-      car_image_url:
-        "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
-      car_seats: 4,
-      driver_id: 3,
-      first_name: "Die",
-      last_name: "Gaye",
-      profile_image_url:
-        "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
-      rating: 4.7,
-    },
-    fare_price: "800.00",
-    origin_address: "663, New York",
-    origin_latitude: "40.907245",
-    origin_longitude: "-73.850065",
-    payment_status: "paid",
-    ride_id: 2,
-    ride_time: 17,
-  },
-  {
-    created_at: "2024-09-24T04:44:55.120Z",
-    destination_address: "59x Rue 64, Gueule Tapee, Dakar, Senegal",
-    destination_latitude: "14.683518",
-    destination_longitude: "-17.458638",
-    driver: {
-      car_image_url:
-        "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
-      car_seats: 4,
-      driver_id: 3,
-      first_name: "Die",
-      last_name: "Gaye",
-      profile_image_url:
-        "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
-      rating: 4.7,
-    },
-    fare_price: "300.00",
-    origin_address: "Medina, Dakar, Senegal",
-    origin_latitude: "14.682200",
-    origin_longitude: "-17.450951",
-    payment_status: "paid",
-    ride_id: 3,
-    ride_time: 8,
-  },
-];
+// const ride = [
+//   {
+//     created_at: "2024-09-23T23:52:27.772Z",
+//     destination_address: "89 South Street, New York, NY, USA",
+//     destination_latitude: "40.706210",
+//     destination_longitude: "-74.003491",
+//     driver: {
+//       car_image_url:
+//         "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
+//       car_seats: 4,
+//       driver_id: 3,
+//       first_name: "Die",
+//       last_name: "Gaye",
+//       profile_image_url:
+//         "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
+//       rating: 4.7,
+//     },
+//     fare_price: "2100.00",
+//     origin_address: "663, New York",
+//     origin_latitude: "40.907266",
+//     origin_longitude: "-73.850072",
+//     payment_status: "paid",
+//     ride_id: 1,
+//     ride_time: 44,
+//   },
+//   {
+//     created_at: "2024-09-24T04:31:49.352Z",
+//     destination_address: "78 Stratton Street South, Yonkers, NY, USA",
+//     destination_latitude: "40.941391",
+//     destination_longitude: "-73.877373",
+//     driver: {
+//       car_image_url:
+//         "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
+//       car_seats: 4,
+//       driver_id: 3,
+//       first_name: "Die",
+//       last_name: "Gaye",
+//       profile_image_url:
+//         "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
+//       rating: 4.7,
+//     },
+//     fare_price: "800.00",
+//     origin_address: "663, New York",
+//     origin_latitude: "40.907245",
+//     origin_longitude: "-73.850065",
+//     payment_status: "paid",
+//     ride_id: 2,
+//     ride_time: 17,
+//   },
+//   {
+//     created_at: "2024-09-24T04:44:55.120Z",
+//     destination_address: "59x Rue 64, Gueule Tapee, Dakar, Senegal",
+//     destination_latitude: "14.683518",
+//     destination_longitude: "-17.458638",
+//     driver: {
+//       car_image_url:
+//         "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
+//       car_seats: 4,
+//       driver_id: 3,
+//       first_name: "Die",
+//       last_name: "Gaye",
+//       profile_image_url:
+//         "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
+//       rating: 4.7,
+//     },
+//     fare_price: "300.00",
+//     origin_address: "Medina, Dakar, Senegal",
+//     origin_latitude: "14.682200",
+//     origin_longitude: "-17.450951",
+//     payment_status: "paid",
+//     ride_id: 3,
+//     ride_time: 8,
+//   },
+// ];
 
 //  `SELECT
 //             rides.ride_id,

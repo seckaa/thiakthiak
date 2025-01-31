@@ -17,35 +17,6 @@ function Complete() {
   const userId = user?.id;
   const { tripStatus, setTripStatus } = useDriverStatus();
 
-  //socket
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.on("3" + "order", (payload) => {
-  //       try {
-  //         console.log("received something", payload);
-  //         const { driverId, status, user, rideInfo } = payload;
-  //         if (status) {
-  //           setTripStatus(status);
-  //           console.log("Driver TripStatus set to:", payload); // Log the new status
-  //         } else {
-  //           console.warn("Status not found in payload:", payload); // Log if status is not found
-  //         }
-  //       } catch (error) {
-  //         console.error("Error handling socket payload:", error);
-  //       }
-  //     });
-
-  //     socket.on("error", (error) => {
-  //       console.error("Socket error:", error);
-  //     });
-  //   }
-  //   return () => {
-  //     if (socket) {
-  //       socket.off("399", () => {});
-  //     }
-  //   };
-  // }, [socket, setTripStatus]);
-
   return (
     <DriverLayout
       title={"Waiting screen"}
@@ -68,15 +39,15 @@ function Complete() {
               updateDriverStatus(userId!, "ready");
               setTripStatus("ready");
             }}
-            className="bg-blue-500"
+            className="bg-green-500"
           />
-          <CustomButton
-            title="BG scren"
+          {/* <CustomButton
+            title="Reload"
             onPress={() => {
-              router.push("/(root)/todestination-trip");
+              router.push("/(root)/taken-trip");
             }}
             className="bg-blue-500"
-          />
+          /> */}
         </View>
         {/* <Button
           title="Go to QR Code Scanner"

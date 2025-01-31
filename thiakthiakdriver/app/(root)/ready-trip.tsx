@@ -17,7 +17,7 @@ function Ready() {
   const { user } = useUser();
   const userId = user?.id;
   const useRideStorage = useRideStore();
-  const { ride, setRide, setLoading, setError, loading, error } =
+  const { ride, setRide, setLoading, setError, loading, error, setRideStatus } =
     useRideStorage;
   const { driverLatitude, driverLongitude } = useDriverLocationStore();
   const { tripStatus, setTripStatus } = useDriverStatus();
@@ -228,6 +228,7 @@ function Ready() {
           // });
 
           scheduleNotification();
+          setRideStatus("toOrigin");
         } catch (error) {
           console.error("Error handling socket payload:", error);
         }

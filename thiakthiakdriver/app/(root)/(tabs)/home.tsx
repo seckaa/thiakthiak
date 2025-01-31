@@ -30,8 +30,12 @@ function home() {
   const [hasPermission, setHasPermission] = useState<boolean>(false);
   const { tripStatus, setTripStatus } = useDriverStatus();
   const { user } = useUser();
-  const { setDriverLocation, setDriverDestinationLocation } =
-    useDriverLocationStore();
+  const {
+    setDriverLocation,
+    setDriverDestinationLocation,
+    driverLongitude,
+    driverLatitude,
+  } = useDriverLocationStore();
   const useRideStorage = useRideStore();
   const { ride, setRide, setLoading, setError } = useRideStorage;
   let location;
@@ -517,13 +521,28 @@ function home() {
     </>
   );
 
-  if (loading)
+  // if (loading)
+  //   return (
+  //     <ActivityIndicator
+  //       className="flex flex-1 justify-center items-center"
+  //       size="large"
+  //       color="#0000ff"
+  //     />
+  //   );
+
+  if (loading || (!driverLongitude && !driverLongitude))
     return (
-      <ActivityIndicator
-        className="flex flex-1 justify-center items-center"
-        size="large"
-        color="#0000ff"
-      />
+      <View className="flex justify-between items-center w-full">
+        <ActivityIndicator size="small" color="#000" />
+      </View>
+    );
+
+  // Display error message if there is an error
+  if (error)
+    return (
+      <View className="flex justify-between items-center w-full">
+        <Text>Error: {error}</Text>
+      </View>
     );
 
   return (

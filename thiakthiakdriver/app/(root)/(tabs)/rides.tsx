@@ -21,14 +21,13 @@ const Rides = () => {
     loading,
     error,
     refetch,
-  } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
-
+  } = useFetch<Ride[]>(`/(api)/driver/ride/rides?id=${user?.id}`);
   // console.log(recentRides?.slice(0, 1));
 
   return (
     <SafeAreaView className="flex-1 bg-white">
       <FlatList
-        data={recentRides}
+        data={recentRides?.slice(0, 20)}
         renderItem={({ item }) => <RideCard ride={item} />}
         keyExtractor={(item, index) => index.toString()}
         className="px-5"
