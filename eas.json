@@ -1,0 +1,41 @@
+{
+  "cli": {
+    "version": ">= 14.2.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_dW5pcXVlLXdhaG9vLTI2LmNsZXJrLmFjY291bnRzLmRldiQ",
+        "DATABASE_URL": "postgresql://jsm_ryde_owner:v6kJzxScWQZ8@ep-orange-sky-a4bc0pmt.us-east-1.aws.neon.tech/jsm_ryde?sslmode=require",
+        "EXPO_PUBLIC_SERVER_URL": "https://uber.dev/",
+        "EXPO_PUBLIC_GEOAPIFY_API_KEY": "67eb25afe3864ff19534c3384ffa18c6",
+        "EXPO_PUBLIC_GOOGLE_API_KEY": "AIzaSyBtuLRc81GOUbfwfZdmtn5kia4z4RPs_e4",
+        "EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_51Q1u0aKpRJd7BdfoLH2cL2bCyhsqxV74tYWtbd1FcS24lXZfHOzafzeFRa2ZDxkR7ut97SlmAqg7gcjkXmnwt7hM00b3EaIB3P",
+        "STRIPE_SECRET_KEY": "sk_test_51Q1u0aKpRJd7BdfoCofwZKWwYVQekuEmN4t8bDaR8DIQIaomGvubrrvG0MuyhMq85ow4ScI84su3G1e3BVoP1svF00K0F8R32Q",
+        "EXPO_PUBLIC_PLACES_API_KEY": "test",
+        "EXPO_PUBLIC_DIRECTIONS_API_KEY": "test"
+      }
+    },
+    "development-simulator": {
+      "extends": "development",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "extends": "development"
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

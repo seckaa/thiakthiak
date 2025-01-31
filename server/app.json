@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "e41cd3bb-e343-4632-a926-f863c1cd3f6b"
+      }
+    },
+    "owner": "mopointofsales",
+    "slug": "testApp",
+    "android": {
+      "package": "com.mopointofsales.testApp"
+    }
+  }
+}
