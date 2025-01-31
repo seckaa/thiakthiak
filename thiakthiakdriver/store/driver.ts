@@ -76,6 +76,14 @@ export const useRideStore = create<RideStore>((set) => ({
   ride: null,
   loading: false,
   error: null,
+  rideStatus: "toOrigin",
+  // rideDest: {
+  //   latitude: null,
+  //   longitude: null,
+  // },
+  // setRideDest: (rideDest) =>
+  //   set((state) => ({ rideDest: { ...state.rideDest, ...rideDest } })),
+  setRideStatus: (rideStatus) => set({ rideStatus }),
   setRide: (ride) => set({ ride }),
   setLoading: (loading) => set({ loading }),
   setError: (error) => set({ error }),
@@ -122,10 +130,19 @@ export const useRideStore = create<RideStore>((set) => ({
 
 declare interface RideStore {
   ride: Ride | null;
+  rideStatus: string;
+  // rideDest: RideDest;
   loading: boolean;
   error: string | null;
   setRide: (ride: Ride) => void;
+  setRideStatus: (rideStatus: string) => void;
+  // setRideDest: (rideDest: RideDest) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string) => void;
   updateDriverStatus: (userId: string, driverStatus: string) => Promise<void>;
+}
+
+interface RideDest {
+  latitude: number | null;
+  longitude: number | null;
 }
