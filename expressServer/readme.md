@@ -9,3 +9,4 @@ npm run server //start server with nodemon
 npm install colors
 npm i morgan
 npm i dotenv
+npm i mysql2
