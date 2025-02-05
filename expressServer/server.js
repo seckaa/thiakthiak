@@ -28,10 +28,17 @@ const secureExpressSever = https.createServer({ key, cert }, app);
 
 //image
 // Create the uploads directory if it doesn't exist
-const uploadDir = "uploads";
+const uploadDir = path.join(__dirname, "uploads");
+console.log(`Checking for directory: ${uploadDir}`);
+
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
+  console.log("Directory not found. Creating uploads directory...");
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log("Uploads directory created.");
+} else {
+  console.log("Uploads directory already exists.");
 }
+
 // Function to calculate hash of the file content
 const calculateFileHash = (fileBuffer) => {
   const hash = crypto.createHash("sha256");
