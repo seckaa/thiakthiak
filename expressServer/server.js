@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const https = require("https"); //we need https ... for https
 
 const mySqlPool = require("./config/db");
 
@@ -14,6 +15,16 @@ const crypto = require("crypto");
 
 //configured dotenv
 dotenv.config();
+
+//rest object
+const app = express();
+
+//read in our certs
+const key = fs.readFileSync("./certs/cert.key");
+const cert = fs.readFileSync("./certs/cert.crt");
+
+const secureExpressSever = https.createServer({ key, cert }, app);
+// secureExpressSever.listen(8080);
 
 //image
 // Create the uploads directory if it doesn't exist
@@ -27,11 +38,6 @@ const calculateFileHash = (fileBuffer) => {
   hash.update(fileBuffer);
   return hash.digest("hex");
 };
-
-// const upload = multer({ storage: multer.memoryStorage() });//to get a buffer for non local storage
-
-//rest object
-const app = express();
 
 //middlewares
 // Set up Multer to handle file uploads
@@ -52,6 +58,7 @@ const storage = multer.diskStorage({
     }
   },
 });
+// const upload = multer({ storage: multer.memoryStorage() });//to get a buffer for non local storage
 const upload = multer({
   storage: storage,
   limits: {
@@ -74,7 +81,7 @@ const upload = multer({
 // CORS options
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = ["http://example.com", "http://another-domain.com"];
+    const allowedOrigins = ["https://localhost:8080", "http://localhost:8080"];
     const disallowedOrigins = ["http://disallowed-domain.com"];
 
     if (disallowedOrigins.includes(origin)) {
@@ -89,14 +96,12 @@ const corsOptions = {
 };
 // Use the `cors` middleware with options
 app.use(cors(corsOptions));
-
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(__dirname));
 
 //routes
 app.use("/api/v1/student", require("./routes/studentRoutes"));
-
 app.post("/upload-1", upload.single("file"), (req, res) => {
   //   //   image = req.file.buffer.toString("base64");
   //   img_url = req.file.path;
@@ -217,7 +222,6 @@ app.post("/upload", (req, res, next) => {
     });
   });
 });
-
 // app.post("/upload-1", upload.single("file"), (req, res) => {
 //   if (!req.file) {
 //     return res.status(400).send({
@@ -248,7 +252,6 @@ app.post("/upload", (req, res, next) => {
 //     message: `File uploaded: ${uploadedFileName}`,
 //   });
 // });
-
 app.post("/upload-multiple", upload.array("files", 4), (req, res) => {
   //4 is the limit
   if (!req.files) {
@@ -263,7 +266,6 @@ app.post("/upload-multiple", upload.array("files", 4), (req, res) => {
   });
   // res.json(req.file);
 });
-
 // app.post("/upload-multiple", upload.array("files", 4), (req, res) => {
 //   if (!req.files) {
 //     return res.status(400).send({
@@ -299,11 +301,9 @@ app.post("/upload-multiple", upload.array("files", 4), (req, res) => {
 //     message: `Files uploaded: ${req.files.map((file) => file.filename).join(", ")}`,
 //   });
 // });
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
-
 app.get("/test", (req, res) => {
   res.status(200).send(`<h1>Backend MySQL App</h1>`);
 });
@@ -319,8 +319,8 @@ mySqlPool
     console.log("Mysql DB connected".bgCyan.white);
 
     //listen
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`.bgMagenta.white);
+    secureExpressSever.listen(PORT, () => {
+      console.log(`Server running on port ${PORT} with https`.bgMagenta.white);
     });
   })
   .catch((error) => {

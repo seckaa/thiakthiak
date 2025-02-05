@@ -13,3 +13,20 @@ npm i mysql2
 
 image upload helper
 npm i multer --save
+
+===============
+secure ssl cert
++++++++++
+
+server
+npm install -g mkcert
+mkcert create-ca
+mkcert create-cert
+
+client
+npm install wbrtc-adaptor
+mkcert create-ca
+mkcert create-cert
+"scripts": {
+"start": "set HTTPS=true&&set SSL_CRT_FILE=./certs/cert.crt&&set SSL_KEY_FILE=./certs/cert.key&&react-scripts start",
+}
